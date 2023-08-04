@@ -1,13 +1,13 @@
 pipeline {
     agent any
      environment {
-        registry = "502746322071.dkr.ecr.ap-south-1.amazonaws.com/demo-ecr"
+        registry = "502746322071.dkr.ecr.ap-south-1.amazonaws.com/calculator-app"
     }
    
     stages {
           stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Nagendra206/jenkins-ECR.git'
+                git branch: 'main', url: 'https://github.com/Nagendra206/calculator_app.git'
             }
         }
            stage('Building image') {
@@ -23,7 +23,7 @@ pipeline {
                   script {
                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws_cred', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
     sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 502746322071.dkr.ecr.ap-south-1.amazonaws.com'
-     sh 'docker push 502746322071.dkr.ecr.ap-south-1.amazonaws.com/demo-ecr:latest'
+     sh 'docker push 502746322071.dkr.ecr.ap-south-1.amazonaws.com/calculator-app:latest'
 }
 
 }
@@ -38,7 +38,7 @@ pipeline {
             stage('Docker Run') {
               steps{
                    script {
-                sh 'docker run -d -p 8096:5000 --rm --name mypythonContainer 502746322071.dkr.ecr.ap-south-1.amazonaws.com/demo-ecr:latest'     
+                sh 'docker run -d -p 3000:3000 --rm --name mypythonContainer 502746322071.dkr.ecr.ap-south-1.amazonaws.com/calculator-app:latest'     
       }
     }
         }
