@@ -1,0 +1,17 @@
+Requries Commands:
+========================================================
+1) sudo yum install git -y
+2) sudo yum install nodejs -y
+3)sudo yum install npm -y
+4)sudo yum install docker -y
+5) sudo systemctl enable docker 
+6) sudo systemctl start docker
+7) sudo systemctl status docker
+8) docker build -t image_name .
+9) docker run -d -p 3000:3000 image_name
+10) docker image prune -a -f   ---> to remove all images
+11) docker container prune -f  ---> to remove all containers
+
+note:
+=============
+1)  .env  file is requried
